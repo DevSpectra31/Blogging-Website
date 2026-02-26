@@ -1,6 +1,6 @@
 /* eslint-disable no-unreachable */
 /* eslint-disable no-useless-catch */
-import conf from "../config/config.js";
+import conf from "../config/conf.js";
 import { Client, Account, ID } from "appwrite";
 export class AuthService{
     client = new Client();
