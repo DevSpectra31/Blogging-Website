@@ -10,7 +10,7 @@ function App() {
 
   return (
     <> 
-    <h1 className='text-3xl bg-red-400'>Blogger Website using appwrite as a service</h1>
+    <h1 className='text-3xl bg-red-400'>Blogger Website using appwrite as a service as it imp</h1>
     </>
   )
 }
