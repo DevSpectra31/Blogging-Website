@@ -1,18 +1,39 @@
 /* eslint-disable no-undef */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-
+import { useDispatch } from 'react-redux'
+import  authService from  "./appwrite/auth.js"
+import {login,logout} from "./store/authSlice.js"
+import Header from './Components/Header.jsx'
+import Footer from './Components/Footer.jsx'
+import { Outlet } from 'react-router-dom'
 function App() {
-  console.log(import.meta.env.VITE_APPWRITE_URL)
-  const [count, setCount] = useState(0)
-
-  return (
-    <> 
-    <h1 className='text-3xl bg-red-400'>Blogger Website using appwrite as a service as it imp</h1>
-    </>
-  )
+  const [loading, setLoading] = useState(true)
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    authService.getCurrentUser()
+      .then((userData)=>{
+        if(userData){
+          dispatch(login({userData}))
+        } else{
+          dispatch(logout())
+        }
+      })
+      .finally(()=>setLoading(false))
+  },[])
+  return !loading ?(
+    <div className='min-h-screen flex flex-wrap content-between bg-gray-500'>
+      <div className='w-full block'>
+        <Header/>
+        <main>
+          TODO : <Outlet/>
+        </main>
+        <Footer/>
+      </div>
+    </div>
+  ) : null
 }
 
-export default App
+export default App;
